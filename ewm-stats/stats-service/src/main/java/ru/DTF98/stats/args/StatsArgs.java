@@ -1,4 +1,4 @@
-package ru.DTF98.stats.dto;
+package ru.DTF98.stats.args;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 @Value
 @RequiredArgsConstructor
 @Builder(toBuilder = true)
-public class StatDto {
+public class StatsArgs {
     LocalDateTime start;
 
     LocalDateTime end;

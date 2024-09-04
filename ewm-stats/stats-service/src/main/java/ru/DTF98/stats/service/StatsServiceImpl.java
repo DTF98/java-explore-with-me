@@ -3,7 +3,7 @@ package ru.DTF98.stats.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.DTF98.stats.dto.StatDto;
+import ru.DTF98.stats.args.StatsArgs;
 import ru.DTF98.stats.model.StatHit;
 import ru.DTF98.stats.repository.StatsRepository;
 import ru.DTF98.stats.model.StatCountView;
@@ -23,7 +23,12 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public List<StatCountView> getStats(StatDto args) {
+    public List<StatCountView> getStats(StatsArgs args) {
         return statsRepository.findStatsCountInTimeIntervalByUri(args.getStart(), args.getEnd(), args.getUris(), args.getUnique());
+    }
+
+    @Override
+    public List<StatCountView> getViewsStats(List<String> uris, boolean unique) {
+        return statsRepository.findStatsCountByUri(uris, unique);
     }
 }

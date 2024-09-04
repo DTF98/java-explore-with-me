@@ -8,10 +8,9 @@
 		<artifactId>explore-with-me</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
 	<groupId>ru.DTF98</groupId>
 	<artifactId>ewm-service</artifactId>
-
+	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
 		<dependency>
 			<groupId>ru.DTF98</groupId>
@@ -67,5 +66,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

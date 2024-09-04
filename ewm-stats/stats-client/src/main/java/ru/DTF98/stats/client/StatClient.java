@@ -10,6 +10,7 @@ import ru.DTF98.stats.dto.ViewStats;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,9 +18,13 @@ import java.util.List;
 public class StatClient {
     private final WebClient webClient;
 
-    public void sendStatHit(String app, String uri, String ip, String timestamp) {
-        EndpointHit endpointHit = EndpointHit.builder().app(app).ip(ip).timestamp(timestamp).uri(uri).build();
-        log.info("Отправлен запрос на запись статистики endpointHit={}", endpointHit);
+    public void sendStatHit(String app, String uri, String ip, LocalDateTime timestamp) {
+        EndpointHit endpointHit = EndpointHit.builder()
+                .app(app)
+                .ip(ip)
+                .timestamp(timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .uri(uri).build();
+        log.debug("Отправлен запрос на запись статистики endpointHit={}", endpointHit);
 
         webClient.post()
                 .uri("/hit")
@@ -27,19 +32,40 @@ public class StatClient {
                 .bodyValue(endpointHit)
                 .retrieve()
                 .toEntity(String.class)
-                .doOnError(c -> StatClient.log.warn(c.getMessage()))
+                .doOnError(c -> log.warn(c.getMessage()))
                 .onErrorComplete()
                 .block();
     }
 
-    public List<ViewStats> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        log.info("Отправлен запрос на получение статистики start={}, end={}, unique={}, uris={}", start, end, unique, uris);
+    public List<ViewStats> getStats(LocalDateTime start, LocalDateTime end, Collection<String> uris, boolean unique) {
+        log.debug("Отправлен запрос на получение статистики start={}, end={}, unique={}, uris={}", start, end, unique, uris);
 
         ResponseEntity<List<ViewStats>> response = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/stats")
                         .queryParam("start", start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                         .queryParam("end", end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                        .queryParam("uris", uris)
+                        .queryParam("unique", unique)
+                        .build())
+                .retrieve()
+                .toEntityList(ViewStats.class)
+                .doOnError(c -> log.warn(c.getMessage()))
+                .onErrorReturn(ResponseEntity.ok(List.of()))
+                .block();
+        if (response != null) {
+            return response.getBody();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<ViewStats> getViewStats(Collection<String> uris, boolean unique) {
+        log.debug("Отправлен запрос на получение статистики unique={}, uris={}", unique, uris);
+
+        ResponseEntity<List<ViewStats>> response = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/stats/views")
                         .queryParam("uris", uris)
                         .queryParam("unique", unique)
                         .build())

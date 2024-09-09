@@ -1,5 +1,8 @@
 package ru.DTF98.ewm.event.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,14 +18,8 @@ import ru.DTF98.ewm.event.model.Request;
 import ru.DTF98.ewm.event.service.EventService;
 import ru.DTF98.ewm.event.service.RequestService;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.List;
-
-import static ru.DTF98.ewm.event.enums.RequestState.CONFIRMED;
-import static ru.DTF98.ewm.event.enums.RequestState.REJECTED;
 
 @RestController
 @RequestMapping("/users/{userId}/events")
@@ -92,12 +89,8 @@ public class EventPrivateController {
         List<ParticipationRequestDto> rejected = new ArrayList<>();
         for (Request request : requests) {
             switch (request.getStatus()) {
-                case CONFIRMED:
-                    confirmed.add(requestMapper.toParticipationRequestDto(request));
-                    break;
-                case REJECTED:
-                    rejected.add(requestMapper.toParticipationRequestDto(request));
-                    break;
+                case CONFIRMED -> confirmed.add(requestMapper.toParticipationRequestDto(request));
+                case REJECTED -> rejected.add(requestMapper.toParticipationRequestDto(request));
             }
         }
         return EventRequestStatusUpdateResult.builder().rejectedRequests(rejected).confirmedRequests(confirmed).build();

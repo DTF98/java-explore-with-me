@@ -2,7 +2,7 @@ package ru.DTF98.ewm.event.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor

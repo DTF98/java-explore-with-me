@@ -2,7 +2,7 @@ package ru.DTF98.stats.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor

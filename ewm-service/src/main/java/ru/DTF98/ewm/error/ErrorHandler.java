@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @RestControllerAdvice
 @Slf4j
@@ -64,7 +65,7 @@ public class ErrorHandler {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.toString())
                 .reason("Ошибка сервера")
-                .message(e.getMessage())
+                .message(Arrays.toString(e.getStackTrace()))
                 .timestamp(LocalDateTime.now())
                 .build();
         log.warn(errorResponse.toString(), e);

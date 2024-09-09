@@ -13,7 +13,7 @@ import ru.DTF98.ewm.event.mapper.CompilationMapper;
 import ru.DTF98.ewm.event.model.Compilation;
 import ru.DTF98.ewm.event.service.CompilationService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/admin/compilations")

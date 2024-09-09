@@ -4,10 +4,9 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import ru.DTF98.ewm.category.model.Category;
 import ru.DTF98.ewm.event.enums.EventState;
-import ru.DTF98.ewm.location.Location;
 import ru.DTF98.ewm.user.model.User;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
@@ -45,7 +44,7 @@ public class Event {
     @Column(name = "event_date", nullable = false)
     private Timestamp eventDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 

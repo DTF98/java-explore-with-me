@@ -13,8 +13,8 @@ import ru.DTF98.ewm.event.mapper.EventMapper;
 import ru.DTF98.ewm.event.service.EventService;
 import ru.DTF98.ewm.event.validation.ValidSearchDateInterval;
 
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;

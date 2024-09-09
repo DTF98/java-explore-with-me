@@ -2,7 +2,7 @@ package ru.DTF98.ewm.category.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor

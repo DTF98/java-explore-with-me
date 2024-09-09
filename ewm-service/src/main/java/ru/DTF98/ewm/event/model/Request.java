@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import ru.DTF98.ewm.event.enums.RequestState;
 import ru.DTF98.ewm.user.model.User;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @AllArgsConstructor

@@ -10,7 +10,7 @@ import ru.DTF98.ewm.category.mapper.CategoryMapper;
 import ru.DTF98.ewm.category.model.Category;
 import ru.DTF98.ewm.category.service.CategoryService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/admin/categories")
